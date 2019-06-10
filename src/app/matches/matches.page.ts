@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: 'list.page.html',
-  styleUrls: ['list.page.scss']
+  selector: 'app-matches',
+  templateUrl: 'matches.page.html'
 })
-export class ListPage implements OnInit {
+export class MatchesPage implements OnInit {
   private selectedItem: any;
   private icons = [
     'flask',
@@ -20,6 +19,7 @@ export class ListPage implements OnInit {
     'build'
   ];
   public items: Array<{ title: string; note: string; icon: string }> = [];
+
   constructor() {
     for (let i = 1; i < 11; i++) {
       this.items.push({
@@ -32,8 +32,9 @@ export class ListPage implements OnInit {
 
   ngOnInit() {
   }
+
   // add back when alpha.4 is out
   // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
+  //   this.router.navigate(['/matches', JSON.stringify(item)]);
   // }
 }

@@ -1,5 +1,7 @@
 {
   "name": "RefereeApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
