@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'matches',
-    loadChildren: './matches/matches.module#ListPageModule'
+    loadChildren: './matches/matches.module#MatchesPageModule'
   }
 ];
 
