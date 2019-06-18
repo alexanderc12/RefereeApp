@@ -8,24 +8,19 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
     <ion-card class="welcome-card">
       <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
+        <ion-card-subtitle>Empeiza a usar el programa</ion-card-subtitle>
+        <ion-card-title>Bienvenido a la bitacora digital para arbitros</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
+        <p>Puedes registrar tus partidos con el boton que esta en la parte inferior derecha de la pantalla.</p>
       </ion-card-content>
     </ion-card>
-    <ion-list lines="none">
-      <ion-list-header>
-        <ion-label>Resources</ion-label>
-      </ion-list-header>
-      <ion-item href="https://ionicframework.com/docs/theming/basics">
-        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
-        <ion-label>Theme Your App</ion-label>
-      </ion-item>
-    </ion-list>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="addMatch()">
+            <ion-icon name="add-circle"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

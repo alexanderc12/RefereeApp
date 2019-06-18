@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-profile',
@@ -6,6 +7,14 @@ import { Component } from '@angular/core';
 })
 export class ProfilePage {
 
-  constructor() {}
+  constructor(private storage: Storage) {}
 
+  addMatch(){
+    this.storage.set('name', 'Max');
+
+    // Or to get a key/value pair
+    this.storage.get('age').then((val) => {
+      console.log('Your age is', val);
+    });
+  }
 }
