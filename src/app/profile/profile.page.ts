@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import {Match} from '../models/Match';
-import { MatchModal } from '../matches/matchModal/match.modal';
 import { ModalController } from '@ionic/angular';
-
-const MATCHES_KEY = 'matches';
+import { MatchModal } from '../matches/matchModal/match.modal';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +8,7 @@ const MATCHES_KEY = 'matches';
 })
 export class ProfilePage {
 
-  constructor(private storage: Storage, public modalController: ModalController) {}
+  constructor(public modalController: ModalController) {}
 
   async showAddMatchDialog(){
     const modal = await this.modalController.create({
@@ -23,20 +19,5 @@ export class ProfilePage {
       }
     });
     return await modal.present();
-  }
-
-  addMatch(match: Match): Promise<any>{
-    return this.storage.get(MATCHES_KEY).then((matches: Match[]) => {
-      if (matches) {
-        matches.push(match);
-        return this.storage.set(MATCHES_KEY, matches);
-      } else {
-        return this.storage.set(MATCHES_KEY, [match]);
-      }
-    });
-  }
-
-  getMatches(): Promise<Match[]>{
-    return this.storage.get(MATCHES_KEY);
   }
 }

@@ -1,16 +1,17 @@
 <ion-item>
-    <ion-label>Equipo local</ion-label>
+    <ion-label position="stacked">Equipo local</ion-label>
     <ion-input placeholder="Ingrese equipo local"> </ion-input>
 </ion-item>
 <ion-item>
-    <ion-label>Equipo visitante</ion-label>
+    <ion-label position="stacked">Equipo visitante</ion-label>
     <ion-input placeholder="Ingrese equipo visitante"> </ion-input>
 </ion-item>
 <ion-item>
     <ion-label>Designación</ion-label>
-    <ion-select placeholder="Select One">
+    <ion-select placeholder="Escoja una..." interface="action-sheet">
         <ion-select-option value="FIRST_REFEREE">Primer arbitro</ion-select-option>
         <ion-select-option value="SECOND_REFEREE">Segundo arbitro</ion-select-option>
         <ion-select-option value="RESERVE_REFEREE">Arbitro reserva</ion-select-option>
     </ion-select>
 </ion-item>
+<ion-button expand="block" shape="round" color="primary" (click)="addMatch()">Agregar</ion-button>

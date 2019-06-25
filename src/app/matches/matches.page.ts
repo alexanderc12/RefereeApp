@@ -1,40 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { Match } from "../models/Match";
+import { Storage } from '@ionic/storage';
+
+const MATCHES_KEY = 'matches';
 
 @Component({
   selector: 'app-matches',
   templateUrl: 'matches.page.html'
 })
 export class MatchesPage implements OnInit {
-  private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
+  public items :  Match[] = [];
 
-  constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  constructor(private storage: Storage) {
+    this.getMatches().then(items =>{
+      this.items = items;
+    });
   }
 
   ngOnInit() {
   }
 
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/matches', JSON.stringify(item)]);
-  // }
+  getMatches(): Promise<Match[]>{
+    return this.storage.get(MATCHES_KEY);
+  }
 }
