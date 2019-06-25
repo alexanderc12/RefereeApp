@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import {Match} from '../models/Match';
+import { MatchModal } from '../matches/matchModal/match.modal';
+import { ModalController } from '@ionic/angular';
+
+const MATCHES_KEY = 'matches';
 
 @Component({
   selector: 'app-profile',
@@ -7,14 +12,31 @@ import { Storage } from '@ionic/storage';
 })
 export class ProfilePage {
 
-  constructor(private storage: Storage) {}
+  constructor(private storage: Storage, public modalController: ModalController) {}
 
-  addMatch(){
-    this.storage.set('name', 'Max');
-
-    // Or to get a key/value pair
-    this.storage.get('age').then((val) => {
-      console.log('Your age is', val);
+  async showAddMatchDialog(){
+    const modal = await this.modalController.create({
+      component: MatchModal,
+      componentProps: {
+        'prop1': 1,
+        'prop2': 2
+      }
     });
+    return await modal.present();
+  }
+
+  addMatch(match: Match): Promise<any>{
+    return this.storage.get(MATCHES_KEY).then((matches: Match[]) => {
+      if (matches) {
+        matches.push(match);
+        return this.storage.set(MATCHES_KEY, matches);
+      } else {
+        return this.storage.set(MATCHES_KEY, [match]);
+      }
+    });
+  }
+
+  getMatches(): Promise<Match[]>{
+    return this.storage.get(MATCHES_KEY);
   }
 }

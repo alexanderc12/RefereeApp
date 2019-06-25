@@ -13,7 +13,7 @@ export class AppComponent {
     {
       title: 'Perfil',
       url: '/profile',
-      icon: 'profile'
+      icon: 'person'
     },
     {
       title: 'Partidos',
