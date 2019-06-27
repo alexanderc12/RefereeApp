@@ -1,11 +1,11 @@
-module Designation {
-    export const FIRST = "Primer arbitro";
-    export const SECOND = "Segundo arbitro";
+export enum Designation {
+    FIRST_REFEREE = "Primer arbitro",
+    SECOND_REFEREE = "Segundo arbitro"
 }
 
-module Division {
-    export const MEN = "Masculino";
-    export const WOMAN = "Femenino";
+export enum Division {
+    MEN = "Masculino",
+    WOMAN = "Femenino"
 }
 
 export interface Match{

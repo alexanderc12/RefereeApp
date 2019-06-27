@@ -8,11 +8,10 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let item of items">
-      {{item.id}}
+      {{item.id}} - {{item.date | date:'dd-MM-y'}}  - {{item.designation}} | {{item.localTeam}} vs {{item.visitTeam}}|
     </ion-item>
   </ion-list>
 </ion-content>

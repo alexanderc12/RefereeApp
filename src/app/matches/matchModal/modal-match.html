@@ -1,17 +1,48 @@
-<ion-item>
-    <ion-label position="stacked">Equipo local</ion-label>
-    <ion-input placeholder="Ingrese equipo local"> </ion-input>
-</ion-item>
-<ion-item>
-    <ion-label position="stacked">Equipo visitante</ion-label>
-    <ion-input placeholder="Ingrese equipo visitante"> </ion-input>
-</ion-item>
-<ion-item>
-    <ion-label>Designación</ion-label>
-    <ion-select placeholder="Escoja una..." interface="action-sheet">
-        <ion-select-option value="FIRST_REFEREE">Primer arbitro</ion-select-option>
-        <ion-select-option value="SECOND_REFEREE">Segundo arbitro</ion-select-option>
-        <ion-select-option value="RESERVE_REFEREE">Arbitro reserva</ion-select-option>
-    </ion-select>
-</ion-item>
-<ion-button expand="block" shape="round" color="primary" (click)="addMatch()">Agregar</ion-button>
+<ion-content>
+<ion-grid>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label position="stacked">División</ion-label>
+                <ion-select placeholder="Escoja una..." interface="action-sheet" [(ngModel)]="division">
+                    <ion-select-option value="MEN">Masculino</ion-select-option>
+                    <ion-select-option value="WOMAN">Femenino</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+                <ion-item>
+                    <ion-label position="stacked">Equipo local</ion-label>
+                    <ion-input placeholder="Ingrese equipo local" [(ngModel)]="local"> </ion-input>
+                </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label position="stacked">Equipo visitante</ion-label>
+                <ion-input placeholder="Ingrese equipo visitante" [(ngModel)]="visit"> </ion-input>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label position="stacked">Designación</ion-label>
+                <ion-select placeholder="Escoja una..." interface="action-sheet" [(ngModel)]="designation">
+                    <ion-select-option value="FIRST_REFEREE">Primer arbitro</ion-select-option>
+                    <ion-select-option value="SECOND_REFEREE">Segundo arbitro</ion-select-option>
+                    <ion-select-option value="RESERVE_REFEREE">Arbitro reserva</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-button expand="block" shape="round" color="primary" (click)="addMatch()">Agregar</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+</ion-content>

@@ -1,12 +1,9 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { MatchModal } from '../matches/matchModal/match.modal';
 import { ModalController } from '@ionic/angular';
-var MATCHES_KEY = 'matches';
+import { MatchModal } from '../matches/matchModal/match.modal';
 var ProfilePage = /** @class */ (function () {
-    function ProfilePage(storage, modalController) {
-        this.storage = storage;
+    function ProfilePage(modalController) {
         this.modalController = modalController;
     }
     ProfilePage.prototype.showAddMatchDialog = function () {
@@ -29,27 +26,12 @@ var ProfilePage = /** @class */ (function () {
             });
         });
     };
-    ProfilePage.prototype.addMatch = function (match) {
-        var _this = this;
-        return this.storage.get(MATCHES_KEY).then(function (matches) {
-            if (matches) {
-                matches.push(match);
-                return _this.storage.set(MATCHES_KEY, matches);
-            }
-            else {
-                return _this.storage.set(MATCHES_KEY, [match]);
-            }
-        });
-    };
-    ProfilePage.prototype.getMatches = function () {
-        return this.storage.get(MATCHES_KEY);
-    };
     ProfilePage = tslib_1.__decorate([
         Component({
             selector: 'app-profile',
             templateUrl: 'profile.page.html'
         }),
-        tslib_1.__metadata("design:paramtypes", [Storage, ModalController])
+        tslib_1.__metadata("design:paramtypes", [ModalController])
     ], ProfilePage);
     return ProfilePage;
 }());

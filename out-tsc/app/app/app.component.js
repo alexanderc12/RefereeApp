@@ -12,7 +12,7 @@ var AppComponent = /** @class */ (function () {
             {
                 title: 'Perfil',
                 url: '/profile',
-                icon: 'profile'
+                icon: 'person'
             },
             {
                 title: 'Partidos',

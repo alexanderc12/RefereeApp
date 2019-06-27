@@ -22,7 +22,8 @@ var ProfilePageModule = /** @class */ (function () {
                     }
                 ])
             ],
-            declarations: [ProfilePage, MatchModal]
+            declarations: [ProfilePage, MatchModal],
+            entryComponents: [MatchModal]
         })
     ], ProfilePageModule);
     return ProfilePageModule;

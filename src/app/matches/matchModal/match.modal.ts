@@ -12,18 +12,21 @@ const MATCHES_KEY = 'matches';
 })
 export class MatchModal {
 
-    @Input() value: number;
+    @Input() local: string;
+    @Input() visit: string;
+    @Input() designation: string;
 
     constructor(private storage: Storage, public modalController: ModalController, navParams: NavParams) {}
 
     addMatch(): Promise<any>{
+        this.modalController.dismiss();
         return this.storage.get(MATCHES_KEY).then((matches: Match[]) => {
             const match: Match = {
                 id: 0,
                 division: '',
-                designation: '',
-                localTeam: '',
-                visitTeam: '',
+                designation: this.designation,
+                localTeam: this.local,
+                visitTeam: this.visit,
                 date: new Date(Date.now())
             };
             if (matches) {
