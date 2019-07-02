@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { MatchModal } from '../matches/matchModal/match.modal';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: 'profile.page.html'

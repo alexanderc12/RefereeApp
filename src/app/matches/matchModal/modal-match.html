@@ -3,7 +3,22 @@
     <ion-row>
         <ion-col>
             <ion-item>
-                <ion-label position="stacked">División</ion-label>
+                <ion-label position="stacked">Categoria</ion-label>
+                <ion-select placeholder="Escoja una..." interface="action-sheet" [(ngModel)]="category">
+                    <ion-select-option value="SENIOR">Mayores</ion-select-option>
+                    <ion-select-option value="UNIVERSITY">Universitarios</ion-select-option>
+                    <ion-select-option value="JUVENILE">Juvenil</ion-select-option>
+                    <ion-select-option value="MINORS">Menores</ion-select-option>
+                    <ion-select-option value="CHILDISH">Infantil</ion-select-option>
+                    <ion-select-option value="SCHOLAR">Escolar</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label position="stacked">Rama</ion-label>
                 <ion-select placeholder="Escoja una..." interface="action-sheet" [(ngModel)]="division">
                     <ion-select-option value="MEN">Masculino</ion-select-option>
                     <ion-select-option value="WOMAN">Femenino</ion-select-option>
@@ -36,6 +51,16 @@
                     <ion-select-option value="SECOND_REFEREE">Segundo arbitro</ion-select-option>
                     <ion-select-option value="RESERVE_REFEREE">Arbitro reserva</ion-select-option>
                 </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-item>
+                    <ion-label position="stacked">Fecha</ion-label>
+                    <ion-datetime displayFormat="DD MMM YY" [(ngModel)]="date" placeholder="Seleccione la fecha"></ion-datetime>
+                </ion-item>
             </ion-item>
         </ion-col>
     </ion-row>

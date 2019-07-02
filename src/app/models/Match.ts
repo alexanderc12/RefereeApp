@@ -10,6 +10,7 @@ export enum Division {
 
 export interface Match{
     id: number
+    category: string,
     division: string,
     designation: string
     localTeam: string,
