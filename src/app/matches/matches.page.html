@@ -1,17 +1,40 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Partidos
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Partidos
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
-      <ion-item *ngFor="let item of items">
-            <ion-card style="width: 100%" >
+    <ion-item>
+        <ion-label position="stacked">Fecha inicio</ion-label>
+        <ion-datetime displayFormat="DD MMM YY" [(ngModel)]="startDate"
+                      placeholder="Seleccione la fecha inicio"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Fecha fin</ion-label>
+        <ion-datetime displayFormat="DD MMM YY" [(ngModel)]="endDate"
+                      placeholder="Seleccione la fecha fin"></ion-datetime>
+    </ion-item>
+    <ion-card color="warning" *ngIf="items.length === 0">
+        <ion-card-header>
+            <ion-card-title>No has registrado partidos</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item color="warning" lines="none">
+                <ion-icon name="alert" size="large"></ion-icon>
+                <ion-label text-wrap>
+                    Desde tu perfil puedes crear partidos.
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-list>
+        <ion-item *ngFor="let item of items" >
+            <ion-card style="width: 100%; margin: 0;">
                 <ion-card-header>
                     <ion-card-subtitle>{{designation[item.designation]}}</ion-card-subtitle>
                     <ion-card-title>{{item.date | date:'dd-MM-y'}}</ion-card-title>
@@ -21,6 +44,11 @@
                     <ion-label>{{item.localTeam | titlecase }} vs {{item.visitTeam | titlecase }}</ion-label>
                 </ion-card-content>
             </ion-card>
-      </ion-item>
-  </ion-list>
+        </ion-item>
+    </ion-list>
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-button expand="block" fill="outline" (click)="showAddMatchDialog()">Exportar</ion-button>
+    </ion-toolbar>
+</ion-footer>

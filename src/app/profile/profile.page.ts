@@ -1,24 +1,39 @@
-import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { MatchModal } from '../matches/matchModal/match.modal';
+import {Component, OnInit} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {MatchModal} from '../matches/matchModal/match.modal';
+import {Match} from "../models/Match";
+import {Storage} from "@ionic/storage";
 
+const MATCHES_KEY = 'matches';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: 'profile.page.html'
+    selector: 'app-profile',
+    templateUrl: 'profile.page.html'
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit{
 
-  constructor(public modalController: ModalController) {}
+    public matchCount: number;
 
-  async showAddMatchDialog(){
-    const modal = await this.modalController.create({
-      component: MatchModal,
-      componentProps: {
-        'prop1': 1,
-        'prop2': 2
-      }
-    });
-    return await modal.present();
-  }
+    constructor(public modalController: ModalController, private storage: Storage) {}
+
+    ngOnInit() {
+        this.countMatches();
+    }
+
+    async showAddMatchDialog() {
+        const modal = await this.modalController.create({
+            component: MatchModal
+        });
+        return await modal.present();
+    }
+
+    countMatches(){
+        this.getMatches().then(items =>{
+            this.matchCount = items.length;
+        });
+    }
+
+    getMatches(): Promise<Match[]>{
+        return this.storage.get(MATCHES_KEY);
+    }
 }

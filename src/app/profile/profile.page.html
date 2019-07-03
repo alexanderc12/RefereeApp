@@ -11,12 +11,28 @@
 <ion-content>
     <ion-card class="welcome-card">
       <ion-card-header>
-        <ion-card-subtitle>Empeiza a usar el programa</ion-card-subtitle>
+        <ion-card-subtitle>Empieza a usar el programa</ion-card-subtitle>
         <ion-card-title>Bienvenido a la bitacora digital para arbitros</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <p>Puedes registrar tus partidos con el boton que esta en la parte inferior derecha de la pantalla.</p>
       </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-subtitle>Puedes ver los detalles en el menu Partidos</ion-card-subtitle>
+            <ion-card-title>
+                <ion-item lines="none">
+                    <ion-label>
+                        Partidos registrados
+                    </ion-label>
+                    <ion-badge color="success" style="font-size: 20px">
+                        {{matchCount}}
+                    </ion-badge>
+                </ion-item>
+
+            </ion-card-title>
+        </ion-card-header>
     </ion-card>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="showAddMatchDialog()">

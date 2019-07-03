@@ -17,7 +17,7 @@ export enum Category {
     SCHOLAR = "Escolar"
 }
 
-export interface Match{
+export interface Match {
     id: number
     category: string,
     division: string,

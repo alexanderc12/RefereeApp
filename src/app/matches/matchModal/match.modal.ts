@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { NavParams } from '@ionic/angular';
+import {Component, Input} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {NavParams} from '@ionic/angular';
 import {Category, Designation, Division, Match} from "../../models/Match";
-import { Storage } from '@ionic/storage';
-import { ToastController } from '@ionic/angular';
+import {Storage} from '@ionic/storage';
+import {ToastController} from '@ionic/angular';
 
 const MATCHES_KEY = 'matches';
 const ID_KEY = 'id';
@@ -21,15 +21,18 @@ export class MatchModal {
     @Input() category: string;
     @Input() date: string = new Date().toISOString();
 
-    public divisionList = Division;
-    public designationList = Object.values(Designation);
-    public categoryList = Category;
+    public divisionList = Object.entries(Division);
+    public designationList = Object.entries(Designation);
+    public categoryList = Object.entries(Category);
 
     constructor(private storage: Storage, public modalController: ModalController,
-                navParams: NavParams, private toastController: ToastController) {}
+                navParams: NavParams, private toastController: ToastController) {
+        //this.storage.remove(MATCHES_KEY);
+        //this.storage.set(ID_KEY, 0);
+    }
 
-    async addMatch(): Promise<any>{
-        this.modalController.dismiss();
+    async addMatch(): Promise<any> {
+        this.modalController.dismiss().then();
 
         const toast = await this.toastController.create({
             message: 'El partido ha sido registrado.',
