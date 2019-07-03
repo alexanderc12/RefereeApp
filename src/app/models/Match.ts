@@ -8,6 +8,15 @@ export enum Division {
     WOMAN = "Femenino"
 }
 
+export enum Category {
+    SENIOR = "Mayores",
+    UNIVERSITY = "Universitarios",
+    JUVENILE = "Juvenil",
+    MINORS = "Menores",
+    CHILDISH = "Infantil",
+    SCHOLAR = "Escolar"
+}
+
 export interface Match{
     id: number
     category: string,

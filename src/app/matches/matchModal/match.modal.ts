@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NavParams } from '@ionic/angular';
-import { Match } from "../../models/Match";
+import {Category, Designation, Division, Match} from "../../models/Match";
 import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
 
 const MATCHES_KEY = 'matches';
+const ID_KEY = 'id';
 
 @Component({
     selector: 'modal-match',
@@ -20,6 +21,10 @@ export class MatchModal {
     @Input() category: string;
     @Input() date: string = new Date().toISOString();
 
+    public divisionList = Division;
+    public designationList = Object.values(Designation);
+    public categoryList = Category;
+
     constructor(private storage: Storage, public modalController: ModalController,
                 navParams: NavParams, private toastController: ToastController) {}
 
@@ -32,6 +37,10 @@ export class MatchModal {
         });
         toast.present();
 
+        this.storage.get(ID_KEY).then((id: number) => {
+            this.storage.set(ID_KEY, ++id);
+        });
+
         return this.storage.get(MATCHES_KEY).then((matches: Match[]) => {
             const match: Match = {
                 id: 0,
@@ -43,7 +52,6 @@ export class MatchModal {
                 date: new Date(this.date)
             };
             if (matches) {
-                match.id = matches.length;
                 matches.push(match);
                 return this.storage.set(MATCHES_KEY, matches);
             } else {

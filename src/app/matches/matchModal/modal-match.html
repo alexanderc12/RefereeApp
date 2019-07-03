@@ -46,10 +46,8 @@
         <ion-col>
             <ion-item>
                 <ion-label position="stacked">Designación</ion-label>
-                <ion-select placeholder="Escoja una..." interface="action-sheet" [(ngModel)]="designation">
-                    <ion-select-option value="FIRST_REFEREE">Primer arbitro</ion-select-option>
-                    <ion-select-option value="SECOND_REFEREE">Segundo arbitro</ion-select-option>
-                    <ion-select-option value="RESERVE_REFEREE">Arbitro reserva</ion-select-option>
+                <ion-select placeholder="Escoja una..." interface="action-sheet" [(ngModel)]="designation" >
+                    <ion-select-option *ngFor=" let designationEnum of designationList" value="{{designationEnum}}}">{{designationList[designationEnum]}}</ion-select-option>
                 </ion-select>
             </ion-item>
         </ion-col>

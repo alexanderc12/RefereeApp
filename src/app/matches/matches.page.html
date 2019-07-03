@@ -10,17 +10,17 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-        <ion-card>
-            <ion-card-header>
-                <ion-card-subtitle>{{item.designation}}</ion-card-subtitle>
-                <ion-card-title>{{item.date | date:'dd-MM-y'}}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                {{item.category}} - {{item.division}}
-                {{item.localTeam}} vs {{item.visitTeam}}
-            </ion-card-content>
-        </ion-card>
-    </ion-item>
+      <ion-item *ngFor="let item of items">
+            <ion-card style="width: 100%" >
+                <ion-card-header>
+                    <ion-card-subtitle>{{designation[item.designation]}}</ion-card-subtitle>
+                    <ion-card-title>{{item.date | date:'dd-MM-y'}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label>{{category[item.category]}} - {{division[item.division]}}</ion-label>
+                    <ion-label>{{item.localTeam | titlecase }} vs {{item.visitTeam | titlecase }}</ion-label>
+                </ion-card-content>
+            </ion-card>
+      </ion-item>
   </ion-list>
 </ion-content>
