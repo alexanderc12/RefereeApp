@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {MatchModal} from '../matches/matchModal/match.modal';
 import {Match} from "../models/Match";
@@ -12,7 +12,7 @@ const MATCHES_KEY = 'matches';
 })
 export class ProfilePage implements OnInit{
 
-    public matchCount: number;
+    @Input() matchCount: number;
 
     constructor(public modalController: ModalController, private storage: Storage) {}
 
@@ -21,8 +21,11 @@ export class ProfilePage implements OnInit{
     }
 
     async showAddMatchDialog() {
-        const modal = await this.modalController.create({
+        let modal = await this.modalController.create({
             component: MatchModal
+        });
+        modal.onDidDismiss().then( () => {
+            this.countMatches();
         });
         return await modal.present();
     }
@@ -35,5 +38,5 @@ export class ProfilePage implements OnInit{
 
     getMatches(): Promise<Match[]>{
         return this.storage.get(MATCHES_KEY);
-    }
+    }   
 }
