@@ -69,10 +69,10 @@ export class MatchesPage implements OnInit {
       ],
       subject: 'Reporte arbitral',
       body: `Buen día, adjunto el reporte de los partidos en el periodo comprendido desde el `
-      + `${new Date(this.startDate).toLocaleDateString()} hasta el ${new Date(this.endDate).toLocaleDateString()}.`,
+      + `${new Date(this.startDate).toLocaleDateString()} hasta el ${new Date(this.endDate).toLocaleDateString()}. ${this.file.dataDirectory}/reporte.xlsx`,
       isHtml: true
     };
-    console.log(email.attachments);
+
     this.emailComposer.open(email).catch(
         function (error) {
           console.log("Error:" + error);
