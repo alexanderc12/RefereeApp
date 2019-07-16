@@ -31,8 +31,12 @@ export class ProfilePage implements OnInit{
     }
 
     countMatches(){
-        this.getMatches().then(items =>{
-            this.matchCount = items.length;
+        this.getMatches().then(matches =>{
+            if(matches){
+                this.matchCount = matches.length;
+            }else{
+                this.matchCount = 0;
+            }
         });
     }
 

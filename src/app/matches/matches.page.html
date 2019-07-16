@@ -19,7 +19,7 @@
         <ion-datetime displayFormat="DD MMM YY" [(ngModel)]="endDate"
                       placeholder="Seleccione la fecha fin"></ion-datetime>
     </ion-item>
-    <ion-card color="warning" *ngIf="items.length === 0">
+    <ion-card color="warning" *ngIf="matches.length === 0">
         <ion-card-header>
             <ion-card-title>No has registrado partidos</ion-card-title>
         </ion-card-header>
@@ -33,15 +33,15 @@
         </ion-card-content>
     </ion-card>
     <ion-list>
-        <ion-item *ngFor="let item of items" >
+        <ion-item *ngFor="let match of matches" >
             <ion-card style="width: 100%; margin: 0;">
                 <ion-card-header>
-                    <ion-card-subtitle>{{designation[item.designation]}}</ion-card-subtitle>
-                    <ion-card-title>{{item.date | date:'dd-MM-y'}}</ion-card-title>
+                    <ion-card-subtitle>{{designation[match.designation]}}</ion-card-subtitle>
+                    <ion-card-title>{{match.date | date:'dd-MM-y'}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
-                    <ion-label>{{category[item.category]}} - {{division[item.division]}}</ion-label>
-                    <ion-label>{{item.localTeam | titlecase }} vs {{item.visitTeam | titlecase }}</ion-label>
+                    <ion-label>{{category[match.category]}} - {{division[match.division]}}</ion-label>
+                    <ion-label>{{match.localTeam | titlecase }} vs {{match.visitTeam | titlecase }}</ion-label>
                 </ion-card-content>
             </ion-card>
         </ion-item>

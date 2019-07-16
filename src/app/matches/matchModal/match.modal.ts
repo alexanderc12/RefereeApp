@@ -33,7 +33,6 @@ export class MatchModal {
 
     async addMatch(): Promise<any> {
         this.modalController.dismiss().then();
-
         const toast = await this.toastController.create({
             message: 'El partido ha sido registrado.',
             duration: 2000

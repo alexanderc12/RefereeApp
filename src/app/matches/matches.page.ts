@@ -13,25 +13,25 @@ const MATCHES_KEY = 'matches';
   templateUrl: 'matches.page.html',
   providers: [EmailComposer, File]
 })
-export class MatchesPage implements OnInit {
+export class MatchesPage {
 
-  public items :  Match[] = [];
+  public matches :  Match[] = [];
   public division = Division;
   public designation = Designation;
   public category = Category;
-  @Input() startDate: string;
-  @Input() endDate: string;
+  public startDate: string;
+  public endDate: string;
 
-  constructor(private storage: Storage, private emailComposer: EmailComposer, private file: File) {}
-
-  ngOnInit() {
-    this.getMatches().then(items =>{
-      this.items = items;
-      this.items.sort(function (item, nextItem) {
-        return +item.date - +nextItem.date;
-      });
-      this.startDate = new Date(Math.min.apply(Math, this.items.map(function(item) { return item.date; }))).toISOString();
-      this.endDate = new Date(Math.max.apply(Math, this.items.map(function(item) { return item.date; }))).toISOString();
+  constructor(private storage: Storage, private emailComposer: EmailComposer, private file: File) {
+    this.getMatches().then(matches =>{
+      if(matches){
+        this.matches = matches;
+        this.matches.sort(function (item, nextItem) {
+          return +item.date - +nextItem.date;
+        });
+        this.startDate = new Date(Math.min.apply(null, this.matches.map(match => new Date(match.date)))).toISOString();
+        this.endDate = new Date(Math.max.apply(null, this.matches.map(match => new Date(match.date)))).toISOString();
+      }
     });
   }
 
@@ -40,7 +40,6 @@ export class MatchesPage implements OnInit {
   }
 
   export(){
-    console.log('export');
     let workbook = new Excel.Workbook();
     let sheet = workbook.addWorksheet('Mis partidos');
     sheet.columns = [
@@ -49,27 +48,26 @@ export class MatchesPage implements OnInit {
       { header: 'Designación', key: 'designation'},
       { header: 'Categoria', key: 'category'},
       { header: 'Rama', key: 'division'},
-      { header: 'Equipo', key: 'localTeam'},
-      { header: 'Equipo', key: 'visitTeam'},
-
+      { header: 'Equipo local', key: 'localTeam'},
+      { header: 'Equipo visitante', key: 'visitTeam'}
     ];
-    this.items.forEach((data, index) => {
-      sheet.addRow({id:data.id, date: data.date, designation: this.designation[data.designation],
-            category: this.category[data.category], division: this.division[data.division],
-        localTeam: data.localTeam, visitTeam: data.visitTeam}).commit();
+    this.matches.forEach((match, index) => {
+      sheet.addRow({id: match.id, date: match.date, designation: this.designation[match.designation],
+            category: this.category[match.category], division: this.division[match.division],
+        localTeam: match.localTeam, visitTeam: match.visitTeam}).commit();
     });
 
-    workbook.xlsx.writeBuffer(this.file.dataDirectory + '/reporte.xlsx').then(buffer => saveAs(new Blob([buffer]), `reporte.xlsx`))
+    workbook.xlsx.writeBuffer().then(buffer => saveAs(new Blob([buffer]), `${this.file.dataDirectory}reporte.xlsx`))
         .catch(err => console.log('Error writing excel export', err));
 
     let email = {
       to: 'alexanderb221@gmail.com',
       attachments: [
-        `${this.file.dataDirectory}/reporte.xlsx`
+        `${this.file.dataDirectory}reporte.xlsx`
       ],
       subject: 'Reporte arbitral',
       body: `Buen día, adjunto el reporte de los partidos en el periodo comprendido desde el `
-      + `${new Date(this.startDate).toLocaleDateString()} hasta el ${new Date(this.endDate).toLocaleDateString()}. ${this.file.dataDirectory}/reporte.xlsx`,
+      + `${new Date(this.startDate).toLocaleDateString()} hasta el ${new Date(this.endDate).toLocaleDateString()}. ${this.file.dataDirectory}reporte.xlsx`,
       isHtml: true
     };
 
