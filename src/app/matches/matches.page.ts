@@ -56,18 +56,18 @@ export class MatchesPage {
             category: this.category[match.category], division: this.division[match.division],
         localTeam: match.localTeam, visitTeam: match.visitTeam}).commit();
     });
-
-    workbook.xlsx.writeBuffer().then(buffer => saveAs(new Blob([buffer]), `${this.file.dataDirectory}reporte.xlsx`))
+    let filePath = `${this.file.externalDataDirectory}reporte.xlsx`;
+    workbook.xlsx.writeBuffer().then(buffer => saveAs(new Blob([buffer]), filePath))
         .catch(err => console.log('Error writing excel export', err));
 
     let email = {
       to: 'alexanderb221@gmail.com',
       attachments: [
-        `${this.file.dataDirectory}reporte.xlsx`
+          filePath
       ],
       subject: 'Reporte arbitral',
       body: `Buen día, adjunto el reporte de los partidos en el periodo comprendido desde el `
-      + `${new Date(this.startDate).toLocaleDateString()} hasta el ${new Date(this.endDate).toLocaleDateString()}. ${this.file.dataDirectory}reporte.xlsx`,
+      + `${new Date(this.startDate).toLocaleDateString()} hasta el ${new Date(this.endDate).toLocaleDateString()}.` + filePath,
       isHtml: true
     };
 
