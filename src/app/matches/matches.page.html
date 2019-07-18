@@ -4,7 +4,7 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>
-            Partidos
+            Partidos {{matches.length}} de {{totalMatches}}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -12,16 +12,18 @@
     <ion-item>
         <ion-label position="stacked">Fecha inicio</ion-label>
         <ion-datetime displayFormat="DD MMM YY" [(ngModel)]="startDate"
-                      placeholder="Seleccione la fecha inicio"></ion-datetime>
+                      placeholder="Seleccione la fecha inicio" min={{minDate}} max={{endDate}}
+                      (ngModelChange)="updateMatches()"></ion-datetime>
     </ion-item>
     <ion-item>
         <ion-label position="stacked">Fecha fin</ion-label>
         <ion-datetime displayFormat="DD MMM YY" [(ngModel)]="endDate"
-                      placeholder="Seleccione la fecha fin"></ion-datetime>
+                      placeholder="Seleccione la fecha fin" min={{startDate}} max={{maxDate}}
+                      (ngModelChange)="updateMatches()"></ion-datetime>
     </ion-item>
     <ion-card color="warning" *ngIf="matches.length === 0">
         <ion-card-header>
-            <ion-card-title>No has registrado partidos</ion-card-title>
+            <ion-card-title>No se han encontrado partidos</ion-card-title>
         </ion-card-header>
         <ion-card-content>
             <ion-item color="warning" lines="none">
@@ -33,18 +35,24 @@
         </ion-card-content>
     </ion-card>
     <ion-list>
-        <ion-item *ngFor="let match of matches" >
-            <ion-card style="width: 100%; margin: 0;">
-                <ion-card-header>
-                    <ion-card-subtitle>{{designation[match.designation]}}</ion-card-subtitle>
-                    <ion-card-title>{{match.date | date:'dd-MM-y'}}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-label>{{category[match.category]}} - {{division[match.division]}}</ion-label>
-                    <ion-label>{{match.localTeam | titlecase }} vs {{match.visitTeam | titlecase }}</ion-label>
-                </ion-card-content>
-            </ion-card>
-        </ion-item>
+        <ion-item-sliding *ngFor="let match of matches" >
+            <ion-item-options side="end">
+                <ion-item-option (click)="delete(match)" style="text-transform: none;" color="danger">
+                    <ion-icon name="trash"></ion-icon>Borrar</ion-item-option>
+            </ion-item-options>
+            <ion-item>
+                <ion-card style="width: 100%; margin: 0;">
+                    <ion-card-header>
+                        <ion-card-subtitle>{{match.date | date:'dd-MM-y'}}</ion-card-subtitle>
+                        <ion-card-title>{{designation[match.designation]}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-label>{{match.localTeam | titlecase }} vs {{match.visitTeam | titlecase }}
+                            ({{category[match.category]}} - {{division[match.division]}})</ion-label>
+                    </ion-card-content>
+                </ion-card>
+            </ion-item>
+        </ion-item-sliding>
     </ion-list>
 </ion-content>
 <ion-footer>

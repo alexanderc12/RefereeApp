@@ -19,6 +19,11 @@ export class AppComponent {
       title: 'Partidos',
       url: '/matches',
       icon: 'list'
+    },
+    {
+      title: 'Opciones',
+      url: '/options',
+      icon: 'options'
     }
   ];
 

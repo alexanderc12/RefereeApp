@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import { ProfilePage } from './profile.page';
-import { MatchModal } from '../matches/matchModal/match.modal';
+import { OptionsPage } from './options.page';
 
 @NgModule({
   imports: [
@@ -14,11 +13,11 @@ import { MatchModal } from '../matches/matchModal/match.modal';
     RouterModule.forChild([
       {
         path: '',
-        component: ProfilePage
+        component: OptionsPage
       }
     ])
   ],
-  declarations: [ProfilePage, MatchModal],
-  entryComponents: [MatchModal]
+  declarations: [OptionsPage],
+  entryComponents: [OptionsPage]
 })
-export class ProfilePageModule {}
+export class OptionsPageModule {}

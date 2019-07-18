@@ -9,15 +9,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card class="welcome-card">
-      <ion-card-header>
-        <ion-card-subtitle>Empieza a usar el programa</ion-card-subtitle>
-        <ion-card-title>Bienvenido a la bitacora digital para arbitros</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Puedes registrar tus partidos con el boton que esta en la parte inferior derecha de la pantalla.</p>
-      </ion-card-content>
-    </ion-card>
     <ion-card>
         <ion-card-header>
             <ion-card-subtitle>Puedes ver los detalles en el menu Partidos</ion-card-subtitle>
@@ -26,14 +17,33 @@
                     <ion-label>
                         Partidos registrados
                     </ion-label>
-                    <ion-badge color="success" style="font-size: 20px">
+                    <ion-badge color="primary" style="font-size: 20px" slot="end">
                         {{matchCount}}
                     </ion-badge>
                 </ion-item>
-
             </ion-card-title>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item lines="none">
+                        <ion-label>Primer arbitro</ion-label>
+                        <ion-note slot="start" color="primary">{{firstMatchCount}}</ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-progress-bar value="{{firstMatchCount/matchCount}}"></ion-progress-bar>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label>Segundo arbitro</ion-label>
+                        <ion-note slot="start" color="primary">{{secondMatchCount}}</ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-progress-bar value="{{secondMatchCount/matchCount}}"></ion-progress-bar>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
         </ion-card-header>
     </ion-card>
+
+
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="showAddMatchDialog()">
             <ion-icon name="add-circle"></ion-icon>

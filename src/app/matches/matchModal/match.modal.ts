@@ -38,14 +38,15 @@ export class MatchModal {
             duration: 2000
         });
         toast.present();
-
+        let matchId;
         this.storage.get(ID_KEY).then((id: number) => {
-            this.storage.set(ID_KEY, ++id);
+            matchId = ++id;
+            this.storage.set(ID_KEY, matchId);
         });
 
         return this.storage.get(MATCHES_KEY).then((matches: Match[]) => {
             const match: Match = {
-                id: 0,
+                id: matchId,
                 category: this.category,
                 division: this.division,
                 designation: this.designation,
