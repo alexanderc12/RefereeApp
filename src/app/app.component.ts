@@ -16,6 +16,11 @@ export class AppComponent {
       icon: 'person'
     },
     {
+      title: 'Torneos',
+      url: '/tournaments',
+      icon: 'trophy'
+    },
+    {
       title: 'Partidos',
       url: '/matches',
       icon: 'list'

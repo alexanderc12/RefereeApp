@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: './profile/profile.module#ProfilePageModule'
   },
   {
+    path: 'tournaments',
+    loadChildren: './tournaments/tournaments.module#TournamentsPageModule'
+  },
+  {
     path: 'matches',
     loadChildren: './matches/matches.module#MatchesPageModule'
   },
