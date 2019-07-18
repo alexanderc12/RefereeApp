@@ -20,8 +20,8 @@ export class TournamentModal {
 
     constructor(private storage: Storage, public modalController: ModalController,
                 navParams: NavParams, private toastController: ToastController) {
-        //this.storage.remove(MATCHES_KEY);
-        //this.storage.set(ID_KEY, 0);
+        //this.storage.remove(TOURNAMENTS_KEY);
+        this.storage.set(TOURNAMENTS_KEY, 0);
     }
 
     async addTournament(): Promise<any> {
