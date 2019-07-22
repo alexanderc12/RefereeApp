@@ -1,17 +1,43 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Torneos
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Torneos
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="showAddTournamentDialog()">
-      <ion-icon name="add-circle"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-card color="warning" *ngIf="tournaments.length === 0">
+        <ion-card-header>
+            <ion-card-title>No se han encontrado torneos</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item color="warning" lines="none">
+                <ion-icon name="alert" size="large"></ion-icon>
+                <ion-label text-wrap>
+                    Desde acá puedes crear un nuevo torneo.
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-list>
+        <ion-item *ngFor="let tournament of tournaments">
+            <ion-card style="width: 100%; margin: 0;">
+                <ion-card-header>
+                    <ion-card-subtitle>{{tournament.year}}</ion-card-subtitle>
+                    <ion-card-title>{{tournament.name}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label>{{tournament.place}}</ion-label>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="showAddTournamentDialog()">
+            <ion-icon name="add-circle"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

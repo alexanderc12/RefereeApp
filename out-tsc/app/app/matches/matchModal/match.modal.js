@@ -1,14 +1,15 @@
 import * as tslib_1 from "tslib";
-import { Component, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { NavParams } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import {Component, Input} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
+
 var MATCHES_KEY = 'matches';
 var MatchModal = /** @class */ (function () {
-    function MatchModal(storage, modalController, navParams) {
+    function MatchModal(storage, modalController) {
         this.storage = storage;
         this.modalController = modalController;
     }
+
     MatchModal.prototype.addMatch = function () {
         var _this = this;
         return this.storage.get(MATCHES_KEY).then(function (matches) {
@@ -23,8 +24,7 @@ var MatchModal = /** @class */ (function () {
             if (matches) {
                 matches.push(match);
                 return _this.storage.set(MATCHES_KEY, matches);
-            }
-            else {
+            } else {
                 return _this.storage.set(MATCHES_KEY, [match]);
             }
         });
@@ -42,5 +42,5 @@ var MatchModal = /** @class */ (function () {
     ], MatchModal);
     return MatchModal;
 }());
-export { MatchModal };
+export {MatchModal};
 //# sourceMappingURL=match.modal.js.map

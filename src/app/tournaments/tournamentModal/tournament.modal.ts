@@ -1,12 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {ModalController} from '@ionic/angular';
-import {NavParams} from '@ionic/angular';
+import {ModalController, NavParams, ToastController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
-import {ToastController} from '@ionic/angular';
 import {Tournament} from "../../models/Tournament";
-
-const TOURNAMENTS_KEY = 'tournaments';
-const TOURNAMENTS_ID_KEY = 'id';
+import {DB} from '../../models/Models';
 
 @Component({
     selector: 'modal-tournament',
@@ -21,7 +17,7 @@ export class TournamentModal {
     constructor(private storage: Storage, public modalController: ModalController,
                 navParams: NavParams, private toastController: ToastController) {
         //this.storage.remove(TOURNAMENTS_KEY);
-        this.storage.set(TOURNAMENTS_KEY, 0);
+        //this.storage.set(TOURNAMENTS_KEY, 0);
     }
 
     async addTournament(): Promise<any> {
@@ -30,14 +26,14 @@ export class TournamentModal {
             message: 'El torneo ha sido registrado.',
             duration: 2000
         });
-        toast.present();
+        await toast.present();
         let tournamentId;
-        this.storage.get(TOURNAMENTS_ID_KEY).then((id: number) => {
+        this.storage.get(DB.TOURNAMENTS_ID_KEY).then((id: number) => {
             tournamentId = ++id;
-            this.storage.set(TOURNAMENTS_ID_KEY, tournamentId).catch((error) => console.log(error));
+            this.storage.set(DB.TOURNAMENTS_ID_KEY, tournamentId).catch((error) => console.log(error));
         });
 
-        return this.storage.get(TOURNAMENTS_KEY).then((tournaments: Tournament[]) => {
+        return this.storage.get(DB.TOURNAMENTS_KEY).then((tournaments: Tournament[]) => {
             const tournament: Tournament = {
                 id: tournamentId,
                 name: this.name,
@@ -46,9 +42,9 @@ export class TournamentModal {
             };
             if (tournaments) {
                 tournaments.push(tournament);
-                return this.storage.set(TOURNAMENTS_KEY, tournaments);
+                return this.storage.set(DB.TOURNAMENTS_KEY, tournaments);
             } else {
-                return this.storage.set(TOURNAMENTS_KEY, [tournament]);
+                return this.storage.set(DB.TOURNAMENTS_KEY, [tournament]);
             }
         });
     }

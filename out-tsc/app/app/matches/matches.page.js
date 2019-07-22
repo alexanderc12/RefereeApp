@@ -1,6 +1,7 @@
 import * as tslib_1 from "tslib";
-import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import {Component} from '@angular/core';
+import {Storage} from '@ionic/storage';
+
 var MATCHES_KEY = 'matches';
 var MatchesPage = /** @class */ (function () {
     function MatchesPage(storage) {
@@ -11,6 +12,7 @@ var MatchesPage = /** @class */ (function () {
             _this.items = items;
         });
     }
+
     MatchesPage.prototype.ngOnInit = function () {
     };
     MatchesPage.prototype.getMatches = function () {
@@ -25,5 +27,5 @@ var MatchesPage = /** @class */ (function () {
     ], MatchesPage);
     return MatchesPage;
 }());
-export { MatchesPage };
+export {MatchesPage};
 //# sourceMappingURL=matches.page.js.map

@@ -3,35 +3,39 @@ import {Tournament} from "../models/Tournament";
 import {ModalController} from "@ionic/angular";
 import {Storage} from "@ionic/storage";
 import {TournamentModal} from "./tournamentModal/tournament.modal";
-
-const TOURNAMENTS_KEY = 'tournaments';
+import {DB} from '../models/Models';
 
 @Component({
     selector: 'tournaments',
     templateUrl: 'tournaments.page.html'
 })
-export class TournamentsPage implements OnInit{
+export class TournamentsPage implements OnInit {
 
-    public tournaments :  Tournament[] = [];
+    public tournaments: Tournament[] = [];
 
-    constructor(public modalController: ModalController, private storage: Storage) {}
-
-    ngOnInit() {
-        this.getTournaments().then(tournaments => {
-            if(tournaments){
-                this.tournaments = tournaments;
-            }
-        });
+    constructor(public modalController: ModalController, private storage: Storage) {
     }
 
-    async showAddTournamentDialog(){
+    ngOnInit() {
+        this.getTournaments();
+    }
+
+    async showAddTournamentDialog() {
         let modal = await this.modalController.create({
             component: TournamentModal
         });
+        modal.onDidDismiss().then(() => {
+                setTimeout(() => this.getTournaments(), 300);
+            }
+        );
         return await modal.present();
     }
 
-    getTournaments(): Promise<Tournament[]>{
-        return this.storage.get(TOURNAMENTS_KEY);
+    getTournaments() {
+        this.storage.get(DB.TOURNAMENTS_KEY).then(tournaments => {
+            if (tournaments) {
+                this.tournaments = tournaments;
+            }
+        });
     }
 }

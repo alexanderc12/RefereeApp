@@ -1,8 +1,9 @@
 import * as tslib_1 from "tslib";
-import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import {Component} from '@angular/core';
+import {Platform} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
+
 var AppComponent = /** @class */ (function () {
     function AppComponent(platform, splashScreen, statusBar) {
         this.platform = platform;
@@ -22,6 +23,7 @@ var AppComponent = /** @class */ (function () {
         ];
         this.initializeApp();
     }
+
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
@@ -40,5 +42,5 @@ var AppComponent = /** @class */ (function () {
     ], AppComponent);
     return AppComponent;
 }());
-export { AppComponent };
+export {AppComponent};
 //# sourceMappingURL=app.component.js.map

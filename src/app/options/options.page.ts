@@ -4,9 +4,10 @@ import {Component, OnInit} from '@angular/core';
     selector: 'options',
     templateUrl: 'options.page.html'
 })
-export class OptionsPage implements OnInit{
+export class OptionsPage implements OnInit {
 
-    constructor() {}
+    constructor() {
+    }
 
     ngOnInit() {
 

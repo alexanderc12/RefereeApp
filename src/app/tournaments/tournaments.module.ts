@@ -1,24 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-import { TournamentsPage } from './tournaments.page';
-import { TournamentModal } from './tournamentModal/tournament.modal';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+import {RouterModule} from '@angular/router';
+import {TournamentsPage} from './tournaments.page';
+import {TournamentModal} from './tournamentModal/tournament.modal';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: TournamentsPage
-      }
-    ])
-  ],
-  declarations: [TournamentsPage, TournamentModal],
-  entryComponents: [TournamentsPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: TournamentsPage
+            }
+        ])
+    ],
+    declarations: [TournamentsPage, TournamentModal],
+    entryComponents: [TournamentsPage, TournamentModal]
 })
-export class TournamentsPageModule{}
+export class TournamentsPageModule {
+}

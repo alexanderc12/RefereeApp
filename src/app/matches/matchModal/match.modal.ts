@@ -1,12 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {ModalController} from '@ionic/angular';
-import {NavParams} from '@ionic/angular';
+import {ModalController, NavParams, ToastController} from '@ionic/angular';
 import {Category, Designation, Division, Match} from "../../models/Match";
 import {Storage} from '@ionic/storage';
-import {ToastController} from '@ionic/angular';
-
-const MATCHES_KEY = 'matches';
-const ID_KEY = 'id';
+import {DB} from '../../models/Models';
 
 @Component({
     selector: 'modal-match',
@@ -39,12 +35,12 @@ export class MatchModal {
         });
         toast.present();
         let matchId;
-        this.storage.get(ID_KEY).then((id: number) => {
+        this.storage.get(DB.ID_KEY).then((id: number) => {
             matchId = ++id;
-            this.storage.set(ID_KEY, matchId);
+            this.storage.set(DB.ID_KEY, matchId);
         });
 
-        return this.storage.get(MATCHES_KEY).then((matches: Match[]) => {
+        return this.storage.get(DB.MATCHES_KEY).then((matches: Match[]) => {
             const match: Match = {
                 id: matchId,
                 category: this.category,
@@ -56,9 +52,17 @@ export class MatchModal {
             };
             if (matches) {
                 matches.push(match);
-                return this.storage.set(MATCHES_KEY, matches);
+                return this.storage.set(DB.MATCHES_KEY, matches);
             } else {
-                return this.storage.set(MATCHES_KEY, [match]);
+                return this.storage.set(DB.MATCHES_KEY, [match]);
+            }
+        });
+    }
+
+    getTournaments() {
+        this.storage.get(DB.TOURNAMENTS_KEY).then(tournaments => {
+            if (tournaments) {
+                //this.tournaments = tournaments;
             }
         });
     }

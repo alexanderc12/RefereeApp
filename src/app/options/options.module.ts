@@ -1,23 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-import { OptionsPage } from './options.page';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+import {RouterModule} from '@angular/router';
+import {OptionsPage} from './options.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: OptionsPage
-      }
-    ])
-  ],
-  declarations: [OptionsPage],
-  entryComponents: [OptionsPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: OptionsPage
+            }
+        ])
+    ],
+    declarations: [OptionsPage],
+    entryComponents: [OptionsPage]
 })
-export class OptionsPageModule {}
+export class OptionsPageModule {
+}
