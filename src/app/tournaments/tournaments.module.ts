@@ -5,6 +5,7 @@ import {IonicModule} from '@ionic/angular';
 import {RouterModule} from '@angular/router';
 import {TournamentsPage} from './tournaments.page';
 import {TournamentModal} from './tournamentModal/tournament.modal';
+import {TournamentDetails} from './tournamentDetails/tournamentDetails';
 
 @NgModule({
     imports: [
@@ -18,8 +19,8 @@ import {TournamentModal} from './tournamentModal/tournament.modal';
             }
         ])
     ],
-    declarations: [TournamentsPage, TournamentModal],
-    entryComponents: [TournamentsPage, TournamentModal]
+    declarations: [TournamentsPage, TournamentModal,TournamentDetails],
+    entryComponents: [TournamentsPage, TournamentModal, TournamentDetails]
 })
 export class TournamentsPageModule {
 }

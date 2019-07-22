@@ -24,7 +24,7 @@
     </ion-card>
     <ion-list>
         <ion-item *ngFor="let tournament of tournaments">
-            <ion-card style="width: 100%; margin: 0;">
+            <ion-card style="width: 100%; margin: 0;" (click)="showDetails(tournament)">
                 <ion-card-header>
                     <ion-card-subtitle>{{tournament.year}}</ion-card-subtitle>
                     <ion-card-title>{{tournament.name}}</ion-card-title>

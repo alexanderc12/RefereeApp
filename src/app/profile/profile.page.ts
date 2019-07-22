@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {MatchModal} from '../matches/matchModal/match.modal';
 import {Designation, Match} from "../models/Match";
@@ -11,9 +11,9 @@ import {DB} from '../models/Models';
 })
 export class ProfilePage implements OnInit {
 
-    @Input() matchCount: number;
-    @Input() firstMatchCount: number;
-    @Input() secondMatchCount: number;
+    public matchCount: number;
+    public firstMatchCount: number;
+    public secondMatchCount: number;
     public designation = Designation;
 
     constructor(public modalController: ModalController, private storage: Storage) {

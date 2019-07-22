@@ -4,8 +4,8 @@
             <ion-col>
                 <ion-item>
                     <ion-label position="stacked">Torneo</ion-label>
-                    <ion-select placeholder="Escoja uno" [compareWith]="compareWith">
-                        <ion-select-option *ngFor="let tournament of tournaments">{{tournament.name}}</ion-select-option>
+                    <ion-select placeholder="Escoja uno" interface="action-sheet" [(ngModel)]="tournament">
+                        <ion-select-option *ngFor="let tournament of tournaments" value="{{tournament.id}}">{{tournament.name}} </ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-col>

@@ -1,0 +1,38 @@
+<ion-content>
+    <ion-list>
+        <ion-list-header style="border-bottom: 1px solid #383a3e">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <h1>{{tournament.name}} ({{matches.length}} partidos)</h1>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-label>{{tournament.place}} - {{tournament.year}}</ion-label>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-list-header>
+            <ion-item *ngFor="let match of matches">
+                <ion-card style="width: 100%; margin: 0;">
+                    <ion-card-header>
+                        <ion-card-subtitle>
+                            {{match.date | date:'dd-MM-y'}}
+                        </ion-card-subtitle>
+                        <ion-card-title>{{designation[match.designation]}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-label>{{match.localTeam | titlecase }} vs {{match.visitTeam | titlecase }}
+                            ({{category[match.category]}} - {{division[match.division]}})
+                        </ion-label>
+                    </ion-card-content>
+                </ion-card>
+            </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-button expand="block" fill="outline" (click)="close()"> <ion-icon name="exit"></ion-icon>Volver</ion-button>
+    </ion-toolbar>
+</ion-footer>

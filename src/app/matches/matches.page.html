@@ -45,7 +45,12 @@
             <ion-item>
                 <ion-card style="width: 100%; margin: 0;">
                     <ion-card-header>
-                        <ion-card-subtitle>{{match.date | date:'dd-MM-y'}}</ion-card-subtitle>
+                        <ion-card-subtitle>
+                            {{match.date | date:'dd-MM-y'}}
+                            <ion-chip outline color="primary">
+                                <ion-label>{{getTournamentFrom(match)}}</ion-label>
+                            </ion-chip>
+                        </ion-card-subtitle>
                         <ion-card-title>{{designation[match.designation]}}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>

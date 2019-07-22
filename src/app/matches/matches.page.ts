@@ -5,6 +5,7 @@ import * as Excel from 'exceljs/dist/exceljs.js';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import {File} from '@ionic-native/file/ngx';
 import {DB} from '../models/Models';
+import {Tournament} from "../models/Tournament";
 
 @Component({
     selector: 'app-matches',
@@ -14,6 +15,8 @@ import {DB} from '../models/Models';
 export class MatchesPage implements OnInit {
 
     public matches: Match[] = [];
+    public tournaments: Tournament[] = [];
+
     public division = Division;
     public designation = Designation;
     public category = Category;
@@ -26,8 +29,21 @@ export class MatchesPage implements OnInit {
     constructor(private storage: Storage, private emailComposer: EmailComposer, private file: File) {
     }
 
-    ngOnInit(): void {
-        this.getMatches().then(matches => {
+    async ngOnInit() {
+        await this.getTournaments();
+        await this.getMatches();
+    }
+
+    getTournaments() {
+        this.storage.get(DB.TOURNAMENTS_KEY).then(tournaments => {
+            if (tournaments) {
+                this.tournaments = tournaments;
+            }
+        });
+    }
+
+    getMatches() {
+        this.storage.get(DB.MATCHES_KEY).then(matches => {
             if (matches) {
                 this.matches = matches;
                 this.matches.sort(function (item, nextItem) {
@@ -45,12 +61,8 @@ export class MatchesPage implements OnInit {
         });
     }
 
-    getMatches(): Promise<Match[]> {
-        return this.storage.get(DB.MATCHES_KEY);
-    }
-
     delete(deleteMatch) {
-        this.getMatches().then((matches) => {
+        this.storage.get(DB.MATCHES_KEY).then((matches) => {
             if (matches) {
                 this.matches = matches.filter(match => match.id !== deleteMatch.id);
                 this.storage.set(DB.MATCHES_KEY, this.matches).catch(error => console.log(error));
@@ -98,7 +110,7 @@ export class MatchesPage implements OnInit {
     }
 
     updateMatches() {
-        this.getMatches().then((matches) => {
+        this.storage.get(DB.MATCHES_KEY).then((matches) => {
             if (matches) {
                 this.matches = matches.filter(match =>
                     new Date(match.date).setHours(0, 0, 0, 0)
@@ -110,5 +122,13 @@ export class MatchesPage implements OnInit {
                 });
             }
         });
+    }
+
+    getTournamentFrom(match){
+     let tournamentResult = this.tournaments.find((tournament) => {return tournament.id === match.tournament});
+     if(tournamentResult === undefined){
+         return 'No registra';
+     }
+     return tournamentResult.name;
     }
 }

@@ -20,20 +20,13 @@ export class TournamentModal {
         //this.storage.set(TOURNAMENTS_KEY, 0);
     }
 
-    async addTournament(): Promise<any> {
-        this.modalController.dismiss().then();
-        const toast = await this.toastController.create({
-            message: 'El torneo ha sido registrado.',
-            duration: 2000
-        });
-        await toast.present();
+    async addTournament() {
         let tournamentId;
         this.storage.get(DB.TOURNAMENTS_ID_KEY).then((id: number) => {
             tournamentId = ++id;
             this.storage.set(DB.TOURNAMENTS_ID_KEY, tournamentId).catch((error) => console.log(error));
         });
-
-        return this.storage.get(DB.TOURNAMENTS_KEY).then((tournaments: Tournament[]) => {
+        this.storage.get(DB.TOURNAMENTS_KEY).then((tournaments: Tournament[]) => {
             const tournament: Tournament = {
                 id: tournamentId,
                 name: this.name,
@@ -42,10 +35,16 @@ export class TournamentModal {
             };
             if (tournaments) {
                 tournaments.push(tournament);
-                return this.storage.set(DB.TOURNAMENTS_KEY, tournaments);
+                this.storage.set(DB.TOURNAMENTS_KEY, tournaments);
             } else {
-                return this.storage.set(DB.TOURNAMENTS_KEY, [tournament]);
+                this.storage.set(DB.TOURNAMENTS_KEY, [tournament]);
             }
         });
+        await this.modalController.dismiss();
+        const toast = await this.toastController.create({
+            message: 'El torneo ha sido registrado.',
+            duration: 2000
+        });
+        await toast.present();
     }
 }

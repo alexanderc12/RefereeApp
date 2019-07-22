@@ -4,6 +4,7 @@ import {ModalController} from "@ionic/angular";
 import {Storage} from "@ionic/storage";
 import {TournamentModal} from "./tournamentModal/tournament.modal";
 import {DB} from '../models/Models';
+import {TournamentDetails} from "./tournamentDetails/tournamentDetails";
 
 @Component({
     selector: 'tournaments',
@@ -25,7 +26,7 @@ export class TournamentsPage implements OnInit {
             component: TournamentModal
         });
         modal.onDidDismiss().then(() => {
-                setTimeout(() => this.getTournaments(), 300);
+                this.getTournaments();
             }
         );
         return await modal.present();
@@ -37,5 +38,19 @@ export class TournamentsPage implements OnInit {
                 this.tournaments = tournaments;
             }
         });
+    }
+
+    async showDetails(tournament){
+        let matchesOfTournament = [];
+        await this.storage.get(DB.MATCHES_KEY).then(matches => {
+            if (matches) {
+                matchesOfTournament = matches.filter((match) => {return match.tournament === tournament.id});
+            }
+        });
+        let modal = await this.modalController.create({
+            component: TournamentDetails,
+            componentProps: {'tournament': tournament, 'matches': matchesOfTournament}
+        });
+        return await modal.present();
     }
 }

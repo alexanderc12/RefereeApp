@@ -27,5 +27,5 @@ export interface Match {
     localTeam: string,
     visitTeam: string,
     date: Date,
-    tournament: Tournament
+    tournament: number
 }
