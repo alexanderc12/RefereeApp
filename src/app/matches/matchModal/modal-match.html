@@ -3,6 +3,16 @@
         <ion-row>
             <ion-col>
                 <ion-item>
+                    <ion-label position="stacked">Torneo</ion-label>
+                    <ion-select placeholder="Escoja uno" [compareWith]="compareWith">
+                        <ion-select-option *ngFor="let tournament of tournaments">{{tournament.name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item>
                     <ion-label position="stacked">Categoria</ion-label>
                     <ion-select placeholder="Escoja una..." interface="action-sheet" [(ngModel)]="category">
                         <ion-select-option *ngFor=" let categoryEnum of categoryList" value="{{categoryEnum[0]}}">

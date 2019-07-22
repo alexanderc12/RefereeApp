@@ -1,3 +1,5 @@
+import {Tournament} from "./Tournament";
+
 export enum Designation {
     FIRST_REFEREE = "Primer arbitro",
     SECOND_REFEREE = "Segundo arbitro"
@@ -24,5 +26,6 @@ export interface Match {
     designation: string
     localTeam: string,
     visitTeam: string,
-    date: Date
+    date: Date,
+    tournament: Tournament
 }
