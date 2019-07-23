@@ -26,9 +26,9 @@ export class AppComponent {
             icon: 'list'
         },
         {
-            title: 'Opciones',
+            title: 'Acerca de',
             url: '/options',
-            icon: 'options'
+            icon: 'information-circle-outline'
         }
     ];
 

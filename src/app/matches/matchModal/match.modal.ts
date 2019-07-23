@@ -26,8 +26,8 @@ export class MatchModal implements OnInit{
 
     constructor(private storage: Storage, public modalController: ModalController,
                 private toastController: ToastController) {
-        this.storage.remove(DB.MATCHES_KEY);
-        this.storage.set(DB.ID_KEY, 0);
+        //this.storage.remove(DB.MATCHES_KEY);
+        //this.storage.set(DB.ID_KEY, 0);
     }
 
     ngOnInit(): void {
@@ -61,7 +61,8 @@ export class MatchModal implements OnInit{
         await this.modalController.dismiss();
         const toast = await this.toastController.create({
             message: 'El partido ha sido registrado.',
-            duration: 2000
+            duration: 2000,
+            color: "primary"
         });
         await toast.present();
     }

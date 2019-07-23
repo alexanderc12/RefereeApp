@@ -6,6 +6,7 @@ import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import {File} from '@ionic-native/file/ngx';
 import {DB} from '../models/Models';
 import {Tournament} from "../models/Tournament";
+import {ToastController} from "@ionic/angular";
 
 @Component({
     selector: 'app-matches',
@@ -26,7 +27,8 @@ export class MatchesPage implements OnInit {
     public maxDate: string;
     public totalMatches: number;
 
-    constructor(private storage: Storage, private emailComposer: EmailComposer, private file: File) {
+    constructor(private storage: Storage, private emailComposer: EmailComposer, private file: File,
+                private toastController: ToastController) {
     }
 
     async ngOnInit() {
@@ -77,6 +79,7 @@ export class MatchesPage implements OnInit {
         sheet.columns = [
             {header: 'Id', key: 'id'},
             {header: 'Fecha', key: 'date'},
+            {header: 'Torneo', key: 'tournament'},
             {header: 'Designación', key: 'designation'},
             {header: 'Categoria', key: 'category'},
             {header: 'Rama', key: 'division'},
@@ -85,11 +88,36 @@ export class MatchesPage implements OnInit {
         ];
         this.matches.forEach((match) => {
             sheet.addRow({
-                id: match.id, date: match.date, designation: this.designation[match.designation],
+                id: match.id, date: new Date(match.date).toLocaleDateString(), tournament: this.getTournamentFrom(match),  designation: this.designation[match.designation],
                 category: this.category[match.category], division: this.division[match.division],
                 localTeam: match.localTeam, visitTeam: match.visitTeam
             }).commit();
         });
+
+        let sheetStats = workbook.addWorksheet('Mis Estadisticas');
+        sheetStats.columns = [
+            {header: 'Reporte', key: 'report'},
+            {header: 'Mayores', key: 'senior'},
+            {header: 'Universitarios', key: 'univerisity'},
+            {header: 'Juvenil', key: 'juvenile'},
+            {header: 'Menores', key: 'miniors'},
+            {header: 'Infantil', key: 'childish'},
+            {header: 'Escolar', key: 'scholar'},
+            {header: 'Total', key: 'total'},
+        ];
+        let stats:String [] = [Designation.FIRST_REFEREE];
+        Object.keys(Category).forEach((column)=>{stats.push(this.countMatches(column, Designation.FIRST_REFEREE))});
+        stats.push(String(this.matches.filter((match)=> {return match.designation === Designation.FIRST_REFEREE})));
+        sheetStats.addRow(stats).commit();
+        stats = [Designation.SECOND_REFEREE];
+        Object.keys(Category).forEach((column)=>{stats.push(this.countMatches(column, Designation.SECOND_REFEREE))});
+        stats.push(String(this.matches.filter((match)=> {return match.designation === Designation.SECOND_REFEREE})));
+        sheetStats.addRow(stats).commit();
+        stats = ['Total por categoria'];
+        ['B','C','D','E','F','G'].forEach((column)=>{stats.push(sheetStats.getCell(column+'2') + sheetStats.getCell(column+'3'))});
+        sheetStats.addRow(stats).commit();
+        stats = ['Total', String(this.matches.length)];
+
         let filePath = this.file.externalApplicationStorageDirectory;
         const FILE_NAME = 'reporte.xlsx';
         workbook.xlsx.writeBuffer().then(buffer => this.file.writeExistingFile(filePath, FILE_NAME, new Blob([buffer])));
@@ -104,8 +132,21 @@ export class MatchesPage implements OnInit {
             isHtml: true
         };
 
-        this.emailComposer.open(email).catch(error => {
-            console.log("Error:" + error);
+        this.emailComposer.open(email).then(async ()=>{
+            const toast = await this.toastController.create({
+                message: 'El informe ha sido enviado con exito.',
+                duration: 2000,
+                color: "primary"
+            });
+            await toast.present();
+        }).catch(async error => {
+            console.log(error);
+            const toast = await this.toastController.create({
+                message: 'No hemos podido enviar tu reporte, intentalo más tarde.',
+                duration: 2000,
+                color: "primary"
+            });
+            await toast.present();
         });
     }
 
@@ -130,5 +171,8 @@ export class MatchesPage implements OnInit {
          return 'No registra';
      }
      return tournamentResult.name;
+    }
+    countMatches(category, designation){
+        return String(this.matches.filter((match)=>{return match.category === category && this.designation[match.designation] === designation;}).length);
     }
 }

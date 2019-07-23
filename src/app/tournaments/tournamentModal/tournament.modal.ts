@@ -43,7 +43,8 @@ export class TournamentModal {
         await this.modalController.dismiss();
         const toast = await this.toastController.create({
             message: 'El torneo ha sido registrado.',
-            duration: 2000
+            duration: 2000,
+            color: "primary"
         });
         await toast.present();
     }
