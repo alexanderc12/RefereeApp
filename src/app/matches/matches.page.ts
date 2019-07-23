@@ -107,16 +107,17 @@ export class MatchesPage implements OnInit {
         ];
         let stats:String [] = [Designation.FIRST_REFEREE];
         Object.keys(Category).forEach((column)=>{stats.push(this.countMatches(column, Designation.FIRST_REFEREE))});
-        stats.push(String(this.matches.filter((match)=> {return match.designation === Designation.FIRST_REFEREE})));
+        stats.push(String(this.matches.filter((match)=> {return match.designation === Designation.FIRST_REFEREE}).length));
         sheetStats.addRow(stats).commit();
         stats = [Designation.SECOND_REFEREE];
         Object.keys(Category).forEach((column)=>{stats.push(this.countMatches(column, Designation.SECOND_REFEREE))});
-        stats.push(String(this.matches.filter((match)=> {return match.designation === Designation.SECOND_REFEREE})));
+        stats.push(String(this.matches.filter((match)=> {return match.designation === Designation.SECOND_REFEREE}).length));
         sheetStats.addRow(stats).commit();
         stats = ['Total por categoria'];
-        ['B','C','D','E','F','G'].forEach((column)=>{stats.push(sheetStats.getCell(column+'2') + sheetStats.getCell(column+'3'))});
+        ['B','C','D','E','F','G'].forEach((column)=>{stats.push(String(+sheetStats.getCell(column+'2') + +sheetStats.getCell(column+'3')))});
         sheetStats.addRow(stats).commit();
         stats = ['Total', String(this.matches.length)];
+        sheetStats.addRow(stats).commit();
 
         let filePath = this.file.externalApplicationStorageDirectory;
         const FILE_NAME = 'reporte.xlsx';
